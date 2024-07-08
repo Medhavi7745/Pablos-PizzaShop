@@ -1,5 +1,7 @@
 import axios from "axios";
 import swal from "sweetalert";
+
+axios.defaults.withCredentials = true;
 export const getAllPizzas = () => async (dispatch) => {
   dispatch({ type: "GET_PIZZAS_REQUEST" });
   try {
@@ -14,7 +16,10 @@ export const getAllPizzas = () => async (dispatch) => {
 export const addPizza = (pizza) => async (dispatch) => {
   dispatch({ type: "ADD_PIZZAS_REQUEST" });
   try {
-    await axios.post("/api/pizzas/addpizza", { pizza });
+    await axios.post(
+      "https://pablos-pizza-shop.vercel.app/api/pizzas/addpizza",
+      { pizza }
+    );
     dispatch({ type: "ADD_PIZZAS_SUCCESS" });
   } catch (err) {
     dispatch({ type: "ADD_PIZZAS_FAIL", payload: err });
@@ -33,9 +38,12 @@ export const getPizzaById = (pizzaId) => async (dispatch) => {
 export const updatePizza = (updatedPizza) => async (dispatch) => {
   dispatch({ type: "UPDATE_PIZZABYID_REQUEST" });
   try {
-    const response = await axios.post("/api/pizzas/updatepizza", {
-      updatedPizza,
-    });
+    const response = await axios.post(
+      "https://pablos-pizza-shop.vercel.app/api/pizzas/updatepizza",
+      {
+        updatedPizza,
+      }
+    );
     dispatch({ type: "UPDATE_PIZZABYID_SUCCESS", payload: response.data });
     window.location.href = "/admin/pizzalist";
   } catch (err) {
@@ -45,7 +53,10 @@ export const updatePizza = (updatedPizza) => async (dispatch) => {
 
 export const deletePizza = (pizzaId) => async (dispatch) => {
   try {
-    await axios.post("/api/pizzas/deletepizza", { pizzaId });
+    await axios.post(
+      "https://pablos-pizza-shop.vercel.app/api/pizzas/deletepizza",
+      { pizzaId }
+    );
     swal("Pizza Deleted Succss!", "success");
     window.location.href = "/admin/pizzalist";
     // console.log(res);
