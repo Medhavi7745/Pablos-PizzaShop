@@ -1,16 +1,21 @@
 import axios from "axios";
 
+axios.defaults.withCredentials = true;
+
 export const placeOrder = (token, subTotal) => async (dispatch, getState) => {
   dispatch({ type: "PLACE_ORDER_REQUEST" });
   const currentUser = getState().loginUserReducer.currentUser;
   const cartItems = getState().cartReducer.cartItems;
   try {
-    await axios.post("/api/orders/placeorder", {
-      token,
-      subTotal,
-      currentUser,
-      cartItems,
-    });
+    await axios.post(
+      "https://pablos-pizza-shop.vercel.app/api/orders/placeorder",
+      {
+        token,
+        subTotal,
+        currentUser,
+        cartItems,
+      }
+    );
     dispatch({ type: "PLACE_ORDER_SUCCESS" });
     // console.log(res);
   } catch (error) {
@@ -25,9 +30,12 @@ export const getUserOrders = () => async (dispatch, getState) => {
     type: "USER_ORDER_REQUEST",
   });
   try {
-    const response = await axios.post("/api/orders/getuserorder", {
-      userid: currentUser._id,
-    });
+    const response = await axios.post(
+      "https://pablos-pizza-shop.vercel.app/api/orders/getuserorder",
+      {
+        userid: currentUser._id,
+      }
+    );
     // console.log(response);
     dispatch({ type: "USER_ORDER_SUCCESS", payload: response.data });
   } catch (error) {
