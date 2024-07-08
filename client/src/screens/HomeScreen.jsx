@@ -1,5 +1,4 @@
 import React, { useEffect } from "react";
-
 import { useDispatch, useSelector } from "react-redux";
 import { Container, Row, Col } from "react-bootstrap";
 import { getAllPizzas } from "../actions/pizzaAction";
@@ -12,14 +11,13 @@ const HomeScreen = () => {
   const dispatch = useDispatch();
   const pizzastate = useSelector((state) => state.getAllPizzaReducer);
   const { loading, pizzas, error } = pizzastate;
-  // console.log(pizzas);
   useEffect(() => {
     dispatch(getAllPizzas());
   }, [dispatch]);
 
   return (
     <>
-      <Container>
+      <Container style={{ backgroundColor: "bisque" }}>
         {loading ? (
           <Loader />
         ) : error ? (
