@@ -1,7 +1,6 @@
 const express = require("express");
 const dotenv = require("dotenv");
 const path = require("path");
-const cors=require("cors");
 
 const connectDB = require("./config/config");
 require("colors");
@@ -14,11 +13,6 @@ dotenv.config();
 connectDB();
 
 const app = express();
-app.use(cors({
-  origin:["https://pablo-pizzashop.vercel.app"],
-  methods:["POST","GET"],
-  credentials:true,
-}))
 
 //middlewares
 app.use(express.json());
@@ -47,3 +41,4 @@ app.listen(port, () => {
       .bgMagenta.white
   );
 });
+
